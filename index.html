@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Manthan Rajput — Video Editor & Web Designer</title>
+  <meta name="description" content="Manthan Rajput is a freelance video editor and web designer from Delhi crafting videos, interfaces and AI-assisted tools.">
+
+  <link rel="preload" href="assets/fonts/oswald-var.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/fonts/oswald.css">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav class="nav glass" aria-label="Main">
+    <a class="nav__logo" href="#hero"><b>MANTHAN</b> <span>RAJPUT</span></a>
+    <ul class="nav__links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#skills">Skills</a></li>
+    </ul>
+    <div class="nav__actions">
+      <a class="btn btn--light btn--sm" href="#contact">Contact</a>
+      <button class="nav__toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span class="nav__toggle-bar"></span>
+        <span class="nav__toggle-bar"></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="nav__drawer glass" id="navDrawer" aria-hidden="true">
+    <ul class="nav__drawer-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+
+  <main>
+    <section class="hero" id="hero">
+      <canvas class="hero__canvas" id="heroCanvas" aria-hidden="true"></canvas>
+      <div class="hero__shade" aria-hidden="true"></div>
+
+      <div class="hero__content container">
+        <div class="hero__main">
+          <span class="chip glass"><span class="dot"></span>Available for freelance, 2026</span>
+          <h1 class="hero__title">MANTHAN</h1>
+          <p class="hero__intro">Freelance video editor & web designer from Delhi crafting videos, interfaces and AI-powered tools.</p>
+          <div class="hero__actions">
+            <a class="btn btn--light" href="#contact">Get in touch <span class="btn__arrow" aria-hidden="true">→</span></a>
+            <a class="btn glass" href="#work">View work</a>
+          </div>
+        </div>
+
+        <aside class="hero__stats">
+          <div class="stat glass">
+            <span class="stat__value">05+</span>
+            <span class="stat__label">Creative tools</span>
+          </div>
+          <div class="stat glass">
+            <span class="stat__value">03</span>
+            <span class="stat__label">AI tools built</span>
+          </div>
+          <div class="stat glass">
+            <span class="stat__label">Based in</span>
+            <span class="stat__value stat__value--sm">DELHI, IN</span>
+            <span class="stat__time" id="localTime">--:-- IST</span>
+          </div>
+        </aside>
+      </div>
+
+      <a class="hero__scroll glass" href="#about" aria-label="Scroll to About">
+        <span class="hero__scroll-dot"></span>
+      </a>
+
+      <div class="loader" id="loader">
+        <div class="loader__stars" aria-hidden="true"></div>
+        <img class="loader__deco loader__deco--sun" src="assets/decor/sun.png" alt="" aria-hidden="true">
+        <img class="loader__deco loader__deco--saturn" src="assets/decor/saturn.png" alt="" aria-hidden="true">
+        <img class="loader__deco loader__deco--moon" src="assets/decor/moon.png" alt="" aria-hidden="true">
+        <img class="loader__deco loader__deco--earth" src="assets/decor/earth.png" alt="" aria-hidden="true">
+        <img class="loader__deco loader__deco--astro" src="assets/decor/astronaut.png" alt="" aria-hidden="true">
+        <img class="loader__deco loader__deco--star" src="assets/decor/star.png" alt="" aria-hidden="true">
+        <img class="loader__deco loader__deco--cloud" src="assets/decor/cloud-engrave.png" alt="" aria-hidden="true">
+
+        <div class="loader__pill glass">
+          <span class="loader__label">LOADING</span>
+          <span class="loader__bar" role="progressbar" aria-label="Loading" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+            <span class="loader__fill" id="loaderFill"></span>
+          </span>
+          <span class="loader__pct" id="loaderPct">0%</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="about" id="about">
+      <img class="deco deco--gum" src="assets/decor/gum-david.png" alt="" aria-hidden="true">
+      <img class="deco deco--thug" src="assets/decor/thug-david.png" alt="" aria-hidden="true">
+
+      <div class="marquee" aria-label="Video Editing, Motion Graphics, Web Design, Graphic Design. Manthan Rajput, Video Editor, Web Designer, AI Tools.">
+        <div class="marquee__row" aria-hidden="true">
+          <div class="marquee__track">
+            <div class="marquee__group">
+              <span>Video Editing</span><span class="marquee__sep">✦</span>
+              <span class="outline">Motion Graphics</span><span class="marquee__sep">✦</span>
+              <span>Web Design</span><span class="marquee__sep">✦</span>
+              <span class="outline">Graphic Design</span><span class="marquee__sep">✦</span>
+            </div>
+          </div>
+        </div>
+        <div class="marquee__row marquee--reverse" aria-hidden="true">
+          <div class="marquee__track">
+            <div class="marquee__group">
+              <span>Manthan Rajput</span><span class="marquee__sep">✦</span>
+              <span class="outline">Video Editor</span><span class="marquee__sep">✦</span>
+              <span>Web Designer</span><span class="marquee__sep">✦</span>
+              <span class="outline">AI Tools</span><span class="marquee__sep">✦</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="about__body container">
+        <p class="eyebrow">(01) About</p>
+        <p class="about__text">
+          I'm Manthan Rajput, a freelance video editor and web designer based in Delhi. I cut
+          <strong>videos people finish watching</strong>, design interfaces that feel effortless and
+          build AI-assisted tools that erase hours of repetitive work — for clients, creators and
+          college societies.
+        </p>
+        <ul class="about__tools" aria-label="Tools I use">
+          <li class="tool glass"><img src="assets/tools/premiere.png" alt="Adobe Premiere Pro" title="Adobe Premiere Pro" loading="lazy" decoding="async"></li>
+          <li class="tool glass"><img src="assets/tools/after-effects.png" alt="Adobe After Effects" title="Adobe After Effects" loading="lazy" decoding="async"></li>
+          <li class="tool glass"><img src="assets/tools/photoshop.png" alt="Adobe Photoshop" title="Adobe Photoshop" loading="lazy" decoding="async"></li>
+          <li class="tool glass"><img src="assets/tools/illustrator.png" alt="Adobe Illustrator" title="Adobe Illustrator" loading="lazy" decoding="async"></li>
+          <li class="tool glass"><img src="assets/tools/figma.png" alt="Figma" title="Figma" loading="lazy" decoding="async"></li>
+          <li class="tool glass"><img src="assets/tools/canva.png" alt="Canva" title="Canva" loading="lazy" decoding="async"></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="work" id="work" data-nav="light">
+      <div class="work__sticky">
+        <div class="cosmos" aria-hidden="true">
+          <div class="cosmos__ring cosmos__ring--1"></div>
+          <div class="cosmos__ring cosmos__ring--2"></div>
+          <div class="cosmos__ring cosmos__ring--3"></div>
+          <img class="cosmos__sun" src="assets/decor/sun.png" alt="">
+          <div class="cosmos__orbit cosmos__orbit--1"><img class="cosmos__planet" src="assets/decor/saturn.png" alt=""></div>
+          <div class="cosmos__orbit cosmos__orbit--2"><img class="cosmos__planet" src="assets/decor/earth.png" alt=""></div>
+          <div class="cosmos__orbit cosmos__orbit--3"><img class="cosmos__planet" src="assets/decor/moon.png" alt=""></div>
+          <img class="cosmos__star" src="assets/decor/star.png" alt="">
+          <img class="cosmos__astro" src="assets/decor/astronaut.png" alt="">
+          <img class="cosmos__cloud cosmos__cloud--1" src="assets/decor/cloud-soft.png" alt="">
+          <img class="cosmos__cloud cosmos__cloud--2" src="assets/decor/cloud-engrave.png" alt="">
+        </div>
+
+        <div class="work__head container">
+          <p class="eyebrow">(02) Selected Work</p>
+          <p class="work__counter"><span id="workCurrent">01</span> / 05</p>
+        </div>
+
+        <div class="work__track" id="workTrack">
+          <div class="work__intro">
+            <h2 class="work__title">Selected<br>Work</h2>
+            <p>Scroll to explore client edits, motion graphics and the AI tools I've built.</p>
+          </div>
+
+          <article class="project project--reel">
+            <div class="project__bar">
+              <span class="project__menu">▾ File</span>
+              <span class="project__prog">Premiere</span>
+              <span class="project__tc"><i class="project__rec"></i>00:00:07</span>
+            </div>
+            <div class="project__screen">
+              <div class="project__art"></div>
+              <span class="project__num">01</span>
+              <span class="project__play"></span>
+            </div>
+            <div class="project__timeline" aria-hidden="true">
+              <div class="project__lane project__lane--v">
+                <span class="project__clip" style="--a: 0%; --w: 38%"></span>
+                <span class="project__clip" style="--a: 40%; --w: 24%"></span>
+                <span class="project__clip" style="--a: 66%; --w: 30%"></span>
+              </div>
+              <div class="project__lane project__lane--a">
+                <span class="project__wave" style="--a: 0%; --w: 96%"></span>
+              </div>
+              <span class="project__head"></span>
+            </div>
+            <div class="project__meta">
+              <div>
+                <h3 class="project__title">Freelance Video Editing</h3>
+                <p class="project__cat">Client projects · Premiere Pro</p>
+              </div>
+              <span class="project__year">Client</span>
+            </div>
+          </article>
+
+          <article class="project project--motion">
+            <div class="project__bar">
+              <span class="project__menu">▾ File</span>
+              <span class="project__prog">After Effects</span>
+              <span class="project__tc"><i class="project__rec"></i>00:01:12</span>
+            </div>
+            <div class="project__screen">
+              <div class="project__art"></div>
+              <span class="project__num">02</span>
+              <span class="project__play"></span>
+            </div>
+            <div class="project__timeline" aria-hidden="true">
+              <div class="project__lane project__lane--v">
+                <span class="project__clip" style="--a: 0%; --w: 22%"></span>
+                <span class="project__clip" style="--a: 26%; --w: 46%"></span>
+                <span class="project__clip" style="--a: 76%; --w: 20%"></span>
+              </div>
+              <div class="project__lane project__lane--a">
+                <span class="project__wave" style="--a: 0%; --w: 88%"></span>
+              </div>
+              <span class="project__head"></span>
+            </div>
+            <div class="project__meta">
+              <div>
+                <h3 class="project__title">Motion Graphics & VFX</h3>
+                <p class="project__cat">Titles, transitions · After Effects</p>
+              </div>
+              <span class="project__year">Client</span>
+            </div>
+          </article>
+
+          <article class="project project--planner">
+            <div class="project__bar">
+              <span class="project__menu">▾ File</span>
+              <span class="project__prog">Study Planner</span>
+              <span class="project__tc"><i class="project__rec"></i>01:24:03</span>
+            </div>
+            <div class="project__screen">
+              <div class="project__art"></div>
+              <span class="project__num">03</span>
+              <span class="project__play"></span>
+            </div>
+            <div class="project__timeline" aria-hidden="true">
+              <div class="project__lane project__lane--v">
+                <span class="project__clip" style="--a: 0%; --w: 30%"></span>
+                <span class="project__clip" style="--a: 34%; --w: 34%"></span>
+                <span class="project__clip" style="--a: 72%; --w: 26%"></span>
+              </div>
+              <div class="project__lane project__lane--a">
+                <span class="project__wave" style="--a: 0%; --w: 92%"></span>
+              </div>
+              <span class="project__head"></span>
+            </div>
+            <div class="project__meta">
+              <div>
+                <h3 class="project__title">Study Planner</h3>
+                <p class="project__cat">Web app · AI-assisted</p>
+              </div>
+              <span class="project__year">AI tool</span>
+            </div>
+          </article>
+
+          <article class="project project--subtitles">
+            <div class="project__bar">
+              <span class="project__menu">▾ Subtitles</span>
+              <span class="project__prog">Auto-caption</span>
+              <span class="project__tc"><i class="project__rec"></i>00:00:31</span>
+            </div>
+            <div class="project__screen">
+              <div class="project__art"></div>
+              <span class="project__num">04</span>
+              <span class="project__play"></span>
+            </div>
+            <div class="project__timeline" aria-hidden="true">
+              <div class="project__lane project__lane--v">
+                <span class="project__clip" style="--a: 0%; --w: 34%"></span>
+                <span class="project__clip" style="--a: 38%; --w: 28%"></span>
+                <span class="project__clip" style="--a: 70%; --w: 28%"></span>
+              </div>
+              <div class="project__lane project__lane--a">
+                <span class="project__wave" style="--a: 0%; --w: 100%"></span>
+              </div>
+              <span class="project__head"></span>
+            </div>
+            <div class="project__meta">
+              <div>
+                <h3 class="project__title">Subtitle Studio</h3>
+                <p class="project__cat">Speech-to-text · Auto captions</p>
+              </div>
+              <span class="project__year">AI tool</span>
+            </div>
+          </article>
+
+          <article class="project project--batch">
+            <div class="project__bar">
+              <span class="project__menu">▾ Batch</span>
+              <span class="project__prog">Upscale 4K</span>
+              <span class="project__tc"><i class="project__rec"></i>00:02:45</span>
+            </div>
+            <div class="project__screen">
+              <div class="project__art"></div>
+              <span class="project__num">05</span>
+              <span class="project__play"></span>
+            </div>
+            <div class="project__timeline" aria-hidden="true">
+              <div class="project__lane project__lane--v">
+                <span class="project__clip" style="--a: 0%; --w: 18%"></span>
+                <span class="project__clip" style="--a: 22%; --w: 18%"></span>
+                <span class="project__clip" style="--a: 44%; --w: 18%"></span>
+                <span class="project__clip" style="--a: 66%; --w: 30%"></span>
+              </div>
+              <div class="project__lane project__lane--a">
+                <span class="project__wave" style="--a: 0%; --w: 84%"></span>
+              </div>
+              <span class="project__head"></span>
+            </div>
+            <div class="project__meta">
+              <div>
+                <h3 class="project__title">Batch 4K Enhancer</h3>
+                <p class="project__cat">Google APIs · 100+ images per run</p>
+              </div>
+              <span class="project__year">AI tool</span>
+            </div>
+          </article>
+        </div>
+
+        <div class="work__progress" aria-hidden="true"><span id="workProgress"></span></div>
+      </div>
+    </section>
+
+    <section class="skills" id="skills">
+      <div class="blob blob--pink" aria-hidden="true"></div>
+      <div class="blob blob--blue" aria-hidden="true"></div>
+      <img class="deco deco--apollo" src="assets/decor/apollo.png" alt="" aria-hidden="true">
+      <img class="deco deco--reader" src="assets/decor/reader.png" alt="" aria-hidden="true">
+
+      <div class="skills__inner container">
+        <p class="eyebrow">(03) Skills</p>
+        <h2 class="skills__title">What I bring</h2>
+
+        <div class="skills__grid quotes">
+          <article class="skill-card quote glass">
+            <header class="skill-card__header quote__author">
+              <span class="skill-card__badge quote__avatar" aria-hidden="true">01</span>
+              <div>
+                <h3 class="skill-card__name quote__name">Video Editing</h3>
+                <span class="skill-card__subtitle quote__role">The core craft</span>
+              </div>
+            </header>
+            <p class="skill-card__desc">
+              Cutting, transitions, motion graphics, subtitles, audio cleanup, VFX and final
+              exports — freelance work delivered in Adobe Premiere Pro, After Effects,
+              Photoshop, Filmora and CapCut, on real client deadlines.
+            </p>
+          </article>
+
+          <article class="skill-card quote glass">
+            <header class="skill-card__header quote__author">
+              <span class="skill-card__badge quote__avatar" aria-hidden="true">02</span>
+              <div>
+                <h3 class="skill-card__name quote__name">Build & AI</h3>
+                <span class="skill-card__subtitle quote__role">The technical side</span>
+              </div>
+            </header>
+            <p class="skill-card__desc">
+              Self-built tools: a study planner that tames exam stress, a speech-to-text
+              subtitling tool, and a batch enhancer that pushes 100+ images to 4K through
+              Google APIs. Web interfaces in HTML, CSS and JavaScript, prototyped with AI.
+            </p>
+          </article>
+
+          <article class="skill-card quote glass">
+            <header class="skill-card__header quote__author">
+              <span class="skill-card__badge quote__avatar" aria-hidden="true">03</span>
+              <div>
+                <h3 class="skill-card__name quote__name">Background</h3>
+                <span class="skill-card__subtitle quote__role">Design & studies</span>
+              </div>
+            </header>
+            <p class="skill-card__desc">
+              Photoshop-driven design for posters, certificates, event branding and society
+              merchandise. Currently pursuing B.Sc. Physical Science with Computer Science at
+              Kirori Mal College, University of Delhi. Working in Hindi, English and Punjabi.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" id="contact" data-nav="light">
+    <div class="footer__glow" aria-hidden="true"></div>
+    <div class="footer__line footer__line--1" aria-hidden="true"></div>
+    <div class="footer__line footer__line--2" aria-hidden="true"></div>
+    <div class="footer__line footer__line--3" aria-hidden="true"></div>
+
+    <div class="container">
+      <p class="eyebrow">(04) Contact</p>
+      <h2 class="footer__title">Let's make<br>something <span class="outline">great</span></h2>
+      <a class="btn btn--accent btn--lg" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=manthanverma54321@gmail.com" target="_blank" rel="noopener">
+        manthanverma54321@gmail.com <span class="btn__arrow" aria-hidden="true">→</span>
+      </a>
+
+      <div class="footer__grid">
+        <div>
+          <h3 class="footer__heading">Studio</h3>
+          <p>Delhi, India<br>Working with clients online</p>
+        </div>
+        <div>
+          <h3 class="footer__heading">Social</h3>
+          <ul class="footer__list">
+            <li><a href="https://github.com/manthan56-cpu" target="_blank" rel="noopener">GitHub</a></li>
+            <li><a href="https://www.linkedin.com/in/manthan-kumar-ba59232a2/" target="_blank" rel="noopener">LinkedIn</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="footer__heading">Menu</h3>
+          <ul class="footer__list">
+            <li><a href="#about">About</a></li>
+            <li><a href="#work">Work</a></li>
+            <li><a href="#skills">Skills</a></li>
+          </ul>
+        </div>
+        <div class="footer__top-wrap">
+          <a class="footer__top glass" href="#hero" aria-label="Back to top">↑</a>
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+        <span>© 2026 Manthan Rajput</span>
+        <span>Designed in Delhi</span>
+      </div>
+    </div>
+
+    <div class="footer__wordmark" aria-hidden="true"><span>MANTHAN</span> RAJPUT</div>
+  </footer>
+
+  <div class="trail" id="trail" aria-hidden="true"></div>
+
+  <script src="script.js"></script>
+  <!-- Liquid Glass: edge-refraction displacement map for the nav (Chromium) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <filter id="liquidGlass" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+      <feImage href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAlgAAAAcCAIAAAAyUlbYAAAFFElEQVR42u3dPY8dRRbG8f+pc6pf7twZaViJRfsRkDZzTEgKKRuyGSQgQe4QCSReJJA2sIMN7GQDE61kMiQ7Ml9jV0tqM8Od7qraoPv6bW1rQ7f0/HSiezuq5NE5XdVl169f5+Xufc3ZgfOZ88IICRERkdedwQjnznlw1nP/01c9HC/748GXjIW3CrvKWMlgWloREdmCBhM8KpTGReHtLxidXz7/v4Pw7vf0M0NirlSjQjNa08KKiMiWmkIzEiQjDE+88y198NPHzz/5/LDzzg1mZ07MiZKYjWIoBEVEZItZ6McUjKWc9268Mghv3WKKYzlToiTK0hRqRUVEZFMpmMANT+REdnKs9cEtXjwavXGHyADWsIZXojJXilHVFIqIyOaC0HAjlhR0uiUIMznz4R1uvv9sEH5/F+9oRrNjO1mJylSYE6XRKk37ZUREZCsvCFknoks72AU503V0HZGJzEd3+eHdp4Jw7qlOSzRb484a3ugqU6U0GhqPiojIdrJwGYo6XdBn+o6+o+vJmeiITIqnOsIvH5AG0kxzqlOdZpjh0DWuGnOjalFFRGQ7EoTTLRHY0w/0PV1PdHjGMyn47AFfXSOAMlJnUqHGWs3BMSOMAaZG1VRUREQ2FYQ56HvGkXFgGOl7cn9MwUxyLADi63uUt7BKnUkddaZM1I7WYUEEg3GAMmk0KiIim+FGnxl3jCcMI8O4toMpk2JNQUt8co84nFF3ULFCLVghzdSJdgUDNpAzp0H5nabxqIiIsJEThIndwH7PyZ5xaQe7dSJqvhaJ/oyYz6kj1mgNKlZphVZoM22CA3HKw4dMFwpCERHZTBDmxOmO/Sm7HUNPzniQnORYggSGGXFOlDcgntoU2qhLKDasMhUuC7/N/OmPWlgREdmGAv+Ga/9hDLITjifcsGOtaQneEfwB5ic/rYcv7PGhfHAI+FULKyIim/JnmKFAYf1G2uN63P4F4W9QHmHH5LO0do4eRCb3jDtOTvnXjjfTy++qEBEReW04vFn57YLLh+QL/IBNMJMKaQnFCg1rlD0R57QC6cnLwxR4Jnf0PbuR/Z7TPXnAdBuhiIiwkWuYKg9/Z78nHsEl7UC+wifajJW1WmU+J/ozygWWsOUtYpAy0dH1jCMnI/sTdjs8H4eqIiIir30QlsZFx6MgZ2xYszCuSBNpJhVsxiqHM+LT+3zx9jEF83rSMPf0PcPIODCO9AOuqaiIiLCl/TIH5xIGIwILWkc94BM+kaY1C7+5TwA+rr3gkoJLOzj0jAPjQN+TM8m1qiIishkVJuPQuIRYdoo6zYkrauCx9oUs3xr9/Be+fYcURCY6cqbr6Zfq6DLhpKS7J0REZDtB2JjhKnNodA0HM5pRnXCak2a++/mp2yeiX7eJRqbr1q9095kuyI4n7ZQREZEtaUaBybkKDhVvWFtPCTajJdyfvY/w45+48R6R1+ua8jECcyISnjBTQygiIpvZLNOgJObGlNY49LoG2XL57t/++T831P/1R259QM7kOKagEwk3kmnLqIiIbCwLKxRjTkxOVDywY1/493/w9D0VT/zlNjmO5eS0fpNG7wdFRGSjQVjS2hROsdbt2zx3YdMz3r9JOHGciIbhGoqKiMhGTxMas1ES81LOjzeff+wFxwPf/QHgwWeEkZZ2UFkoIiKbe01o1EY9ZuHP3734yZeek7/2FcC9TzjrOV++3q0BqYiIsJFrmGBfOJ85O3D/m1c9/F81H389PPEC7QAAAABJRU5ErkJggg==" x="0" y="0" width="100%" height="100%" preserveAspectRatio="none" result="map"></feImage>
+      <feDisplacementMap in="SourceGraphic" in2="map" scale="24.0" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap>
+    </filter>
+  </svg>
+</body>
+</html>

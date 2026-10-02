@@ -1,0 +1,205 @@
+- generic [active] [ref=f1e1]:
+  - navigation "Main" [ref=f1e2]:
+    - link "MANTHAN RAJPUT" [ref=f1e3] [cursor=pointer]:
+      - /url: "#hero"
+    - generic [ref=f1e4]:
+      - link "Contact" [ref=f1e5] [cursor=pointer]:
+        - /url: "#contact"
+      - button "Toggle navigation menu" [ref=f1e6] [cursor=pointer]
+  - main [ref=f1e9]:
+    - generic [ref=f1e13]:
+      - generic [ref=f1e14]: Available for freelance, 2026
+      - heading "MANTHAN" [level=1] [ref=f1e16]
+      - paragraph [ref=f1e17]: Freelance video editor & web designer from Delhi crafting videos, interfaces and AI-powered tools.
+      - generic [ref=f1e18]:
+        - link "Get in touch" [ref=f1e19] [cursor=pointer]:
+          - /url: "#contact"
+          - text: Get in touch
+          - generic [aria-hidden] [ref=f1e20]: →
+        - link "View work" [ref=f1e21] [cursor=pointer]:
+          - /url: "#work"
+    - generic [ref=f1e22]:
+      - generic "Video Editing, Motion Graphics, Web Design, Graphic Design. Manthan Rajput, Video Editor, Web Designer, AI Tools." [ref=f1e23]:
+        - generic [ref=f1e25]:
+          - generic [ref=f1e26]:
+            - generic [ref=f1e27]: Video Editing
+            - generic [ref=f1e28]: ✦
+            - generic [ref=f1e29]: Motion Graphics
+            - generic [ref=f1e30]: ✦
+            - generic [ref=f1e31]: Web Design
+            - generic [ref=f1e32]: ✦
+            - generic [ref=f1e33]: Graphic Design
+            - generic [ref=f1e34]: ✦
+          - generic [ref=f1e35]:
+            - generic [ref=f1e36]: Video Editing
+            - generic [ref=f1e37]: ✦
+            - generic [ref=f1e38]: Motion Graphics
+            - generic [ref=f1e39]: ✦
+            - generic [ref=f1e40]: Web Design
+            - generic [ref=f1e41]: ✦
+            - generic [ref=f1e42]: Graphic Design
+            - generic [ref=f1e43]: ✦
+          - generic [ref=f1e44]:
+            - generic [ref=f1e45]: Video Editing
+            - generic [ref=f1e46]: ✦
+            - generic [ref=f1e47]: Motion Graphics
+            - generic [ref=f1e48]: ✦
+            - generic [ref=f1e49]: Web Design
+            - generic [ref=f1e50]: ✦
+            - generic [ref=f1e51]: Graphic Design
+            - generic [ref=f1e52]: ✦
+        - generic [ref=f1e54]:
+          - generic [ref=f1e55]:
+            - generic [ref=f1e56]: Manthan Rajput
+            - generic [ref=f1e57]: ✦
+            - generic [ref=f1e58]: Video Editor
+            - generic [ref=f1e59]: ✦
+            - generic [ref=f1e60]: Web Designer
+            - generic [ref=f1e61]: ✦
+            - generic [ref=f1e62]: AI Tools
+            - generic [ref=f1e63]: ✦
+          - generic [ref=f1e64]:
+            - generic [ref=f1e65]: Manthan Rajput
+            - generic [ref=f1e66]: ✦
+            - generic [ref=f1e67]: Video Editor
+            - generic [ref=f1e68]: ✦
+            - generic [ref=f1e69]: Web Designer
+            - generic [ref=f1e70]: ✦
+            - generic [ref=f1e71]: AI Tools
+            - generic [ref=f1e72]: ✦
+          - generic [ref=f1e73]:
+            - generic [ref=f1e74]: Manthan Rajput
+            - generic [ref=f1e75]: ✦
+            - generic [ref=f1e76]: Video Editor
+            - generic [ref=f1e77]: ✦
+            - generic [ref=f1e78]: Web Designer
+            - generic [ref=f1e79]: ✦
+            - generic [ref=f1e80]: AI Tools
+            - generic [ref=f1e81]: ✦
+      - generic [ref=f1e82]:
+        - paragraph [ref=f1e83]: (01) About
+        - paragraph [ref=f1e84]:
+          - text: I'm Manthan Rajput, a freelance video editor and web designer based in Delhi. I cut
+          - strong [ref=f1e85]: videos people finish watching
+          - text: ", design interfaces that feel effortless and build AI-assisted tools that erase hours of repetitive work — for clients, creators and college societies."
+        - list "Tools I use" [ref=f1e86]:
+          - listitem [ref=f1e87]:
+            - img "Adobe Premiere Pro" [ref=f1e88]
+          - listitem [ref=f1e89]:
+            - img "Adobe After Effects" [ref=f1e90]
+          - listitem [ref=f1e91]:
+            - img "Adobe Photoshop" [ref=f1e92]
+          - listitem [ref=f1e93]:
+            - img "Adobe Illustrator" [ref=f1e94]
+          - listitem [ref=f1e95]:
+            - img "Figma" [ref=f1e96]
+          - listitem [ref=f1e97]:
+            - img "Canva" [ref=f1e98]
+    - generic [ref=f1e100]:
+      - generic [ref=f1e101]:
+        - paragraph [ref=f1e102]: (02) Selected Work
+        - paragraph [ref=f1e103]: 01 / 05
+      - generic [ref=f1e104]:
+        - generic [ref=f1e105]:
+          - heading "Selected Work" [level=2] [ref=f1e106]: SelectedWork
+          - paragraph [ref=f1e107]: Scroll to explore client edits, motion graphics and the AI tools I've built.
+        - article [ref=f1e108]:
+          - generic [ref=f1e110]: "01"
+          - generic [ref=f1e111]:
+            - generic [ref=f1e112]:
+              - heading "Freelance Video Editing" [level=3] [ref=f1e113]
+              - paragraph [ref=f1e114]: Client projects · Premiere Pro
+            - generic [ref=f1e115]: Client
+        - article [ref=f1e116]:
+          - generic [ref=f1e118]: "02"
+          - generic [ref=f1e119]:
+            - generic [ref=f1e120]:
+              - heading "Motion Graphics & VFX" [level=3] [ref=f1e121]
+              - paragraph [ref=f1e122]: Titles, transitions · After Effects
+            - generic [ref=f1e123]: Client
+        - article [ref=f1e124]:
+          - generic [ref=f1e126]: "03"
+          - generic [ref=f1e127]:
+            - generic [ref=f1e128]:
+              - heading "Study Planner" [level=3] [ref=f1e129]
+              - paragraph [ref=f1e130]: Web app · AI-assisted
+            - generic [ref=f1e131]: AI tool
+        - article [ref=f1e132]:
+          - generic [ref=f1e134]: "04"
+          - generic [ref=f1e135]:
+            - generic [ref=f1e136]:
+              - heading "Subtitle Studio" [level=3] [ref=f1e137]
+              - paragraph [ref=f1e138]: Speech-to-text · Auto captions
+            - generic [ref=f1e139]: AI tool
+        - article [ref=f1e140]:
+          - generic [ref=f1e142]: "05"
+          - generic [ref=f1e143]:
+            - generic [ref=f1e144]:
+              - heading "Batch 4K Enhancer" [level=3] [ref=f1e145]
+              - paragraph [ref=f1e146]: Google APIs · 100+ images per run
+            - generic [ref=f1e147]: AI tool
+    - generic [ref=f1e150]:
+      - paragraph [ref=f1e151]: (03) Skills
+      - heading "What I bring" [level=2] [ref=f1e152]
+      - generic [ref=f1e153]:
+        - article [ref=f1e154]:
+          - generic [ref=f1e155]:
+            - generic [aria-hidden] [ref=f1e156]: "01"
+            - generic [ref=f1e157]:
+              - heading "Video Editing" [level=3] [ref=f1e158]
+              - generic [ref=f1e159]: The core craft
+          - paragraph [ref=f1e160]: Cutting, transitions, motion graphics, subtitles, audio cleanup, VFX and final exports — freelance work delivered in Adobe Premiere Pro, After Effects, Photoshop, Filmora and CapCut, on real client deadlines.
+        - article [ref=f1e161]:
+          - generic [ref=f1e162]:
+            - generic [aria-hidden] [ref=f1e163]: "02"
+            - generic [ref=f1e164]:
+              - heading "Build & AI" [level=3] [ref=f1e165]
+              - generic [ref=f1e166]: The technical side
+          - paragraph [ref=f1e167]: "Self-built tools: a study planner that tames exam stress, a speech-to-text subtitling tool, and a batch enhancer that pushes 100+ images to 4K through Google APIs. Web interfaces in HTML, CSS and JavaScript, prototyped with AI."
+        - article [ref=f1e168]:
+          - generic [ref=f1e169]:
+            - generic [aria-hidden] [ref=f1e170]: "03"
+            - generic [ref=f1e171]:
+              - heading "Background" [level=3] [ref=f1e172]
+              - generic [ref=f1e173]: Design & studies
+          - paragraph [ref=f1e174]: Photoshop-driven design for posters, certificates, event branding and society merchandise. Currently pursuing B.Sc. Physical Science with Computer Science at Kirori Mal College, University of Delhi. Working in Hindi, English and Punjabi.
+  - contentinfo [ref=f1e175]:
+    - generic [ref=f1e176]:
+      - paragraph [ref=f1e177]: (04) Contact
+      - heading "Let's make something great" [level=2] [ref=f1e178]: Let's makesomething great
+      - link "manthanverma54321@gmail.com" [ref=f1e179] [cursor=pointer]:
+        - /url: https://mail.google.com/mail/?view=cm&fs=1&to=manthanverma54321@gmail.com
+        - text: manthanverma54321@gmail.com
+        - generic [aria-hidden] [ref=f1e180]: →
+      - generic [ref=f1e181]:
+        - generic [ref=f1e182]:
+          - heading "Studio" [level=3] [ref=f1e183]
+          - paragraph [ref=f1e184]: Delhi, IndiaWorking with clients online
+        - generic [ref=f1e185]:
+          - heading "Social" [level=3] [ref=f1e186]
+          - list [ref=f1e187]:
+            - listitem [ref=f1e188]:
+              - link "GitHub" [ref=f1e189] [cursor=pointer]:
+                - /url: https://github.com/manthan56-cpu
+            - listitem [ref=f1e190]:
+              - link "LinkedIn" [ref=f1e191] [cursor=pointer]:
+                - /url: https://www.linkedin.com/in/manthan-kumar-ba59232a2/
+        - generic [ref=f1e192]:
+          - heading "Menu" [level=3] [ref=f1e193]
+          - list [ref=f1e194]:
+            - listitem [ref=f1e195]:
+              - link "About" [ref=f1e196] [cursor=pointer]:
+                - /url: "#about"
+            - listitem [ref=f1e197]:
+              - link "Work" [ref=f1e198] [cursor=pointer]:
+                - /url: "#work"
+            - listitem [ref=f1e199]:
+              - link "Skills" [ref=f1e200] [cursor=pointer]:
+                - /url: "#skills"
+        - link "Back to top" [ref=f1e202] [cursor=pointer]:
+          - /url: "#hero"
+          - text: ↑
+      - generic [ref=f1e203]:
+        - generic [ref=f1e204]: © 2026 Manthan Rajput
+        - generic [ref=f1e205]: Designed in Delhi
+    - generic [aria-hidden] [ref=f1e206]: MANTHAN RAJPUT
