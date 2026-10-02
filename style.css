@@ -38,6 +38,11 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Mobile browser chrome theming */
+@media (prefers-color-scheme: dark) {
+  html { background: var(--black); }
+}
+
 section,
 footer {
   scroll-margin-top: 90px;
