@@ -828,7 +828,7 @@ video {
   transform-origin: left center;
   border-radius: inherit;
   background: var(--white);
-  transition: transform 0.2s ease-out;
+  transition: transform 0.2s ease-out, opacity 0.3s ease;
 }
 
 /* ==========================================================================
@@ -1751,6 +1751,16 @@ video {
   border-radius: 40px 40px 0 0;
   background: var(--white);
   color: var(--ink);
+}
+
+/* Soft inner glow for depth */
+.footer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: radial-gradient(ellipse at top center, rgba(173, 216, 230, 0.12) 0%, transparent 60%);
+  pointer-events: none;
 }
 
 /* Big flat accent circle, cropped by the right edge like the reference */
