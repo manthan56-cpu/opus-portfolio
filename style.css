@@ -2225,6 +2225,15 @@ video {
     scroll-behavior: auto;
   }
 
+  .btn:hover,
+  .project__art::before,
+  .loader__fill,
+  .hero__canvas {
+    transition: none;
+    animation: none;
+  }
+}
+
   .chip .dot,
   .hero__scroll-dot,
   .blob,
