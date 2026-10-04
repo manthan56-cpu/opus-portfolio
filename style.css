@@ -421,6 +421,11 @@ video {
   opacity: 1;
 }
 
+.nav__links a.is-active {
+  color: var(--accent);
+  text-shadow: 0 0 12px rgba(255, 102, 8, 0.5);
+}
+
 .nav__actions {
   display: flex;
   align-items: center;
