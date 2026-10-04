@@ -2268,3 +2268,8 @@ a:focus-visible,
 button:focus-visible {
   outline-offset: 4px;
 }
+
+/* Work section hover glow */
+.work:hover .work__track {
+  filter: drop-shadow(0 0 20px rgba(255, 102, 8, 0.15));
+}
