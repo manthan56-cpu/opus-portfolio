@@ -702,3 +702,24 @@ if (trail && !isMobile) {
   window.addEventListener("pointercancel", endTrail);
   window.addEventListener("blur", endTrail);
 }
+
+/* ==========================================================================
+   Active nav link highlight via scroll spy
+========================================================================== */
+const sections = document.querySelectorAll('[data-section]');
+const navLinks = document.querySelectorAll('.nav__links a');
+if (sections.length && navLinks.length) {
+  const onScroll = () => {
+    let current = '';
+    sections.forEach(sec => {
+      if (window.scrollY >= sec.offsetTop - 200) {
+        current = sec.getAttribute('data-section');
+      }
+    });
+    navLinks.forEach(a => {
+      a.classList.toggle('is-active', a.getAttribute('href') === '#' + current);
+    });
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+}
