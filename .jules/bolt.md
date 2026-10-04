@@ -1,0 +1,3 @@
+## 2026-10-04 - Optimize Layout Thrashing in Scroll Handlers
+**Learning:** Found an instance of layout thrashing inside a scroll event handler. The `updateWork` function was reading `card.offsetLeft` and `card.offsetWidth` for multiple DOM elements in a loop, right after modifying CSS (`transform` and `width`). This forced synchronous layout recalculation on every scroll tick.
+**Action:** When working with scroll event handlers, always cache static layout measurements (like offset positions and dimensions) outside of the high-frequency handler (e.g., inside a resize listener). Additionally, cache the last known state to avoid unnecessary DOM writes (like textContent updates) during scroll.
