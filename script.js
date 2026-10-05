@@ -467,6 +467,8 @@ if (work && workTrack) {
   const cards = [...workTrack.querySelectorAll(".project")];
   let distance = 0;
   let hashAligned = false;
+  let cardCenters = [];
+  let lastCurrent = -1;
 
   function alignHashTarget() {
     if (hashAligned || !window.location.hash) return;
@@ -487,6 +489,7 @@ if (work && workTrack) {
   function measureWork() {
     distance = Math.max(0, workTrack.scrollWidth - window.innerWidth);
     work.style.height = `${distance + window.innerHeight}px`;
+    cardCenters = cards.map(card => card.offsetLeft + card.offsetWidth / 2);
     updateWork();
     alignHashTarget();
   }
@@ -496,7 +499,7 @@ if (work && workTrack) {
     const progress = distance ? Math.min(Math.max(-top / distance, 0), 1) : 0;
 
     workTrack.style.transform = `translate3d(${-progress * distance}px, 0, 0)`;
-    workProgress.style.width = `${progress * 100}%`;
+    workProgress.style.transform = `scaleX(${progress})`;
 
     // Current project = the card closest to a reference point that travels
     // from the left edge (progress 0) to the right edge (progress 1), so the
@@ -505,14 +508,18 @@ if (work && workTrack) {
     const center = window.innerWidth * progress + progress * distance;
     let current = 0;
     let best = Infinity;
-    cards.forEach((card, i) => {
-      const d = Math.abs(card.offsetLeft + card.offsetWidth / 2 - center);
+    cardCenters.forEach((cardCenter, i) => {
+      const d = Math.abs(cardCenter - center);
       if (d < best) {
         best = d;
         current = i;
       }
     });
-    workCurrent.textContent = String(current + 1).padStart(2, "0");
+
+    if (current !== lastCurrent) {
+      workCurrent.textContent = String(current + 1).padStart(2, "0");
+      lastCurrent = current;
+    }
   }
 
   window.addEventListener("scroll", updateWork, { passive: true });
