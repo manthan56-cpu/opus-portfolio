@@ -491,28 +491,34 @@ if (work && workTrack) {
     alignHashTarget();
   }
 
+  let tickingWork = false;
   function updateWork() {
-    const top = work.getBoundingClientRect().top;
-    const progress = distance ? Math.min(Math.max(-top / distance, 0), 1) : 0;
+    if (tickingWork) return;
+    tickingWork = true;
+    requestAnimationFrame(() => {
+      // ⚡ Bolt: Batch DOM reads first
+      const top = work.getBoundingClientRect().top;
+      const progress = distance ? Math.min(Math.max(-top / distance, 0), 1) : 0;
+      const center = window.innerWidth * progress + progress * distance;
 
-    workTrack.style.transform = `translate3d(${-progress * distance}px, 0, 0)`;
-    workProgress.style.width = `${progress * 100}%`;
+      let current = 0;
+      let best = Infinity;
 
-    // Current project = the card closest to a reference point that travels
-    // from the left edge (progress 0) to the right edge (progress 1), so the
-    // first and last cards both get counted. offsetLeft is measured from the
-    // sticky panel, so add the track's shift.
-    const center = window.innerWidth * progress + progress * distance;
-    let current = 0;
-    let best = Infinity;
-    cards.forEach((card, i) => {
-      const d = Math.abs(card.offsetLeft + card.offsetWidth / 2 - center);
-      if (d < best) {
-        best = d;
-        current = i;
-      }
+      cards.forEach((card, i) => {
+        const d = Math.abs(card.offsetLeft + card.offsetWidth / 2 - center);
+        if (d < best) {
+          best = d;
+          current = i;
+        }
+      });
+
+      // ⚡ Bolt: Batch DOM writes last, use transform for progress
+      workTrack.style.transform = `translate3d(${-progress * distance}px, 0, 0)`;
+      workProgress.style.transform = `scaleX(${progress})`;
+      workCurrent.textContent = String(current + 1).padStart(2, "0");
+
+      tickingWork = false;
     });
-    workCurrent.textContent = String(current + 1).padStart(2, "0");
   }
 
   window.addEventListener("scroll", updateWork, { passive: true });
@@ -709,15 +715,25 @@ if (trail && !isMobile) {
 const sections = document.querySelectorAll('[data-section]');
 const navLinks = document.querySelectorAll('.nav__links a');
 if (sections.length && navLinks.length) {
+  let tickingSpy = false;
   const onScroll = () => {
-    let current = '';
-    sections.forEach(sec => {
-      if (window.scrollY >= sec.offsetTop - 200) {
-        current = sec.getAttribute('data-section');
-      }
-    });
-    navLinks.forEach(a => {
-      a.classList.toggle('is-active', a.getAttribute('href') === '#' + current);
+    if (tickingSpy) return;
+    tickingSpy = true;
+    requestAnimationFrame(() => {
+      let current = '';
+      const scrollY = window.scrollY;
+
+      sections.forEach(sec => {
+        if (scrollY >= sec.offsetTop - 200) {
+          current = sec.getAttribute('data-section');
+        }
+      });
+
+      navLinks.forEach(a => {
+        a.classList.toggle('is-active', a.getAttribute('href') === '#' + current);
+      });
+
+      tickingSpy = false;
     });
   };
   window.addEventListener('scroll', onScroll, { passive: true });
