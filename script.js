@@ -467,6 +467,9 @@ if (work && workTrack) {
   const cards = [...workTrack.querySelectorAll(".project")];
   let distance = 0;
   let hashAligned = false;
+  // ⚡ Bolt: Cache layout properties to prevent read-after-write layout thrashing in scroll handler
+  let cardMetrics = [];
+  let workQueued = false;
 
   function alignHashTarget() {
     if (hashAligned || !window.location.hash) return;
@@ -487,11 +490,16 @@ if (work && workTrack) {
   function measureWork() {
     distance = Math.max(0, workTrack.scrollWidth - window.innerWidth);
     work.style.height = `${distance + window.innerHeight}px`;
+    cardMetrics = cards.map(card => ({
+      left: card.offsetLeft,
+      width: card.offsetWidth
+    }));
     updateWork();
     alignHashTarget();
   }
 
   function updateWork() {
+    workQueued = false;
     const top = work.getBoundingClientRect().top;
     const progress = distance ? Math.min(Math.max(-top / distance, 0), 1) : 0;
 
@@ -505,8 +513,8 @@ if (work && workTrack) {
     const center = window.innerWidth * progress + progress * distance;
     let current = 0;
     let best = Infinity;
-    cards.forEach((card, i) => {
-      const d = Math.abs(card.offsetLeft + card.offsetWidth / 2 - center);
+    cardMetrics.forEach((metric, i) => {
+      const d = Math.abs(metric.left + metric.width / 2 - center);
       if (d < best) {
         best = d;
         current = i;
@@ -515,7 +523,14 @@ if (work && workTrack) {
     workCurrent.textContent = String(current + 1).padStart(2, "0");
   }
 
-  window.addEventListener("scroll", updateWork, { passive: true });
+  // ⚡ Bolt: Debounce scroll events using requestAnimationFrame to batch DOM updates
+  function queueWork() {
+    if (workQueued) return;
+    workQueued = true;
+    requestAnimationFrame(updateWork);
+  }
+
+  window.addEventListener("scroll", queueWork, { passive: true });
   window.addEventListener("resize", measureWork);
   document.fonts.ready.then(() => {
     measureWork();
