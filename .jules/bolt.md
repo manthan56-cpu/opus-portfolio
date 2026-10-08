@@ -1,0 +1,3 @@
+## 2024-06-11 - Fixed Scroll Layout Thrashing
+**Learning:** Found a layout thrashing bottleneck in the horizontal scroll `updateWork` function. The code was interleaved reading from the DOM (`card.offsetLeft`, `card.offsetWidth`) and then writing to the DOM (`workCurrent.textContent` and updating transform style rules). In a heavily customized layout with horizontal tracking that is hooked directly into scroll events, preventing synchronous layout passes in these busy loops drastically reduces CPU usage and scrolling jank.
+**Action:** Always pre-calculate and cache layout geometries when reacting to scroll/resize events and try to batch DOM updates or exit early (e.g., checking if textContent string output has changed before re-assigning it).
