@@ -1,0 +1,3 @@
+## 2023-10-27 - Prevent Layout Thrashing in Scroll Handlers
+**Learning:** Reading layout properties like `offsetLeft`, `offsetWidth`, or `offsetTop` inside a `scroll` event handler, especially after writing to `style.transform` or other style properties, forces the browser to synchronously recalculate the layout (layout thrashing), causing significant performance drops and janky scrolling.
+**Action:** Always cache static layout measurements (like offset positions and dimensions) during initialization or `resize` events. In scroll handlers, rely solely on these cached values to determine scroll progress or intersections, completely separating read and write operations.

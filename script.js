@@ -467,6 +467,9 @@ if (work && workTrack) {
   const cards = [...workTrack.querySelectorAll(".project")];
   let distance = 0;
   let hashAligned = false;
+  let cardCenters = []; // cache card centers to prevent layout thrashing
+  let currentCardIndex = -1; // cache current index to prevent unnecessary DOM writes
+  let workRafId = null; // for throttling scroll
 
   function alignHashTarget() {
     if (hashAligned || !window.location.hash) return;
@@ -487,32 +490,43 @@ if (work && workTrack) {
   function measureWork() {
     distance = Math.max(0, workTrack.scrollWidth - window.innerWidth);
     work.style.height = `${distance + window.innerHeight}px`;
+
+    // Cache the center of each card relative to the track
+    cardCenters = cards.map(card => card.offsetLeft + card.offsetWidth / 2);
+
     updateWork();
     alignHashTarget();
   }
 
   function updateWork() {
-    const top = work.getBoundingClientRect().top;
-    const progress = distance ? Math.min(Math.max(-top / distance, 0), 1) : 0;
+    // Throttle scroll events with requestAnimationFrame
+    if (workRafId) cancelAnimationFrame(workRafId);
+    workRafId = requestAnimationFrame(() => {
+      const top = work.getBoundingClientRect().top;
+      const progress = distance ? Math.min(Math.max(-top / distance, 0), 1) : 0;
 
-    workTrack.style.transform = `translate3d(${-progress * distance}px, 0, 0)`;
-    workProgress.style.width = `${progress * 100}%`;
+      workTrack.style.transform = `translate3d(${-progress * distance}px, 0, 0)`;
+      workProgress.style.width = `${progress * 100}%`;
 
-    // Current project = the card closest to a reference point that travels
-    // from the left edge (progress 0) to the right edge (progress 1), so the
-    // first and last cards both get counted. offsetLeft is measured from the
-    // sticky panel, so add the track's shift.
-    const center = window.innerWidth * progress + progress * distance;
-    let current = 0;
-    let best = Infinity;
-    cards.forEach((card, i) => {
-      const d = Math.abs(card.offsetLeft + card.offsetWidth / 2 - center);
-      if (d < best) {
-        best = d;
-        current = i;
+      // Current project = the card closest to a reference point that travels
+      // from the left edge (progress 0) to the right edge (progress 1).
+      const center = window.innerWidth * progress + progress * distance;
+      let current = 0;
+      let best = Infinity;
+
+      cardCenters.forEach((cardCenter, i) => {
+        const d = Math.abs(cardCenter - center);
+        if (d < best) {
+          best = d;
+          current = i;
+        }
+      });
+
+      if (current !== currentCardIndex) {
+        currentCardIndex = current;
+        workCurrent.textContent = String(current + 1).padStart(2, "0");
       }
     });
-    workCurrent.textContent = String(current + 1).padStart(2, "0");
   }
 
   window.addEventListener("scroll", updateWork, { passive: true });
@@ -709,17 +723,45 @@ if (trail && !isMobile) {
 const sections = document.querySelectorAll('[data-section]');
 const navLinks = document.querySelectorAll('.nav__links a');
 if (sections.length && navLinks.length) {
+  let sectionOffsets = [];
+  let navRafId = null;
+  let activeSection = '';
+
+  const measureSections = () => {
+    sectionOffsets = Array.from(sections).map(sec => ({
+      id: sec.getAttribute('data-section'),
+      top: sec.offsetTop - 200
+    }));
+  };
+
   const onScroll = () => {
-    let current = '';
-    sections.forEach(sec => {
-      if (window.scrollY >= sec.offsetTop - 200) {
-        current = sec.getAttribute('data-section');
+    if (navRafId) cancelAnimationFrame(navRafId);
+    navRafId = requestAnimationFrame(() => {
+      let current = '';
+      const scrollY = window.scrollY;
+
+      sectionOffsets.forEach(sec => {
+        if (scrollY >= sec.top) {
+          current = sec.id;
+        }
+      });
+
+      if (current !== activeSection) {
+        activeSection = current;
+        navLinks.forEach(a => {
+          const isActive = a.getAttribute('href') === '#' + current;
+          if (a.classList.contains('is-active') !== isActive) {
+            a.classList.toggle('is-active', isActive);
+          }
+        });
       }
     });
-    navLinks.forEach(a => {
-      a.classList.toggle('is-active', a.getAttribute('href') === '#' + current);
-    });
   };
+
+  window.addEventListener('resize', measureSections);
+  document.fonts.ready.then(measureSections);
+  measureSections();
+
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 }
