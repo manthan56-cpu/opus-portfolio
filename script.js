@@ -465,8 +465,10 @@ if (work && workTrack) {
   const workProgress = document.getElementById("workProgress");
   const workCurrent = document.getElementById("workCurrent");
   const cards = [...workTrack.querySelectorAll(".project")];
+  let cardMetrics = [];
   let distance = 0;
   let hashAligned = false;
+  let currentCardText = "";
 
   function alignHashTarget() {
     if (hashAligned || !window.location.hash) return;
@@ -487,6 +489,13 @@ if (work && workTrack) {
   function measureWork() {
     distance = Math.max(0, workTrack.scrollWidth - window.innerWidth);
     work.style.height = `${distance + window.innerHeight}px`;
+
+    // Cache card metrics to prevent layout thrashing in updateWork
+    cardMetrics = cards.map(card => ({
+      left: card.offsetLeft,
+      width: card.offsetWidth
+    }));
+
     updateWork();
     alignHashTarget();
   }
@@ -505,14 +514,22 @@ if (work && workTrack) {
     const center = window.innerWidth * progress + progress * distance;
     let current = 0;
     let best = Infinity;
-    cards.forEach((card, i) => {
-      const d = Math.abs(card.offsetLeft + card.offsetWidth / 2 - center);
-      if (d < best) {
-        best = d;
-        current = i;
+
+    if (cardMetrics.length === cards.length) {
+      cards.forEach((_, i) => {
+        const d = Math.abs(cardMetrics[i].left + cardMetrics[i].width / 2 - center);
+        if (d < best) {
+          best = d;
+          current = i;
+        }
+      });
+
+      const nextText = String(current + 1).padStart(2, "0");
+      if (currentCardText !== nextText) {
+        workCurrent.textContent = nextText;
+        currentCardText = nextText;
       }
-    });
-    workCurrent.textContent = String(current + 1).padStart(2, "0");
+    }
   }
 
   window.addEventListener("scroll", updateWork, { passive: true });
