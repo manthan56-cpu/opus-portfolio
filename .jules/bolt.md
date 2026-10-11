@@ -1,0 +1,3 @@
+## 2026-10-11 - Unthrottled scroll handlers and redundant DOM writes
+**Learning:** In vanilla JavaScript, adding `window.addEventListener('scroll', ...)` directly executes the callback on every pixel scrolled. If this callback directly modifies the DOM, even with idempotent changes like `classList.toggle()` switching an element to its already-current state, it forces the browser to recalculate styles and layout synchronously, thrashing the main thread and killing scroll performance.
+**Action:** Always throttle high-frequency scroll and pointer events with `requestAnimationFrame`. Furthermore, introduce a state variable (e.g., `lastActive`) to short-circuit the event handler logic and avoid DOM updates entirely unless the application state actually needs to change.

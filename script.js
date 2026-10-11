@@ -709,6 +709,9 @@ if (trail && !isMobile) {
 const sections = document.querySelectorAll('[data-section]');
 const navLinks = document.querySelectorAll('.nav__links a');
 if (sections.length && navLinks.length) {
+  let lastActive = null;
+  let ticking = false;
+
   const onScroll = () => {
     let current = '';
     sections.forEach(sec => {
@@ -716,11 +719,24 @@ if (sections.length && navLinks.length) {
         current = sec.getAttribute('data-section');
       }
     });
-    navLinks.forEach(a => {
-      a.classList.toggle('is-active', a.getAttribute('href') === '#' + current);
-    });
+
+    // ⚡ Bolt: Only update DOM when active section actually changes
+    if (current !== lastActive) {
+      lastActive = current;
+      navLinks.forEach(a => {
+        a.classList.toggle('is-active', a.getAttribute('href') === '#' + current);
+      });
+    }
+    ticking = false;
   };
-  window.addEventListener('scroll', onScroll, { passive: true });
+
+  window.addEventListener('scroll', () => {
+    // ⚡ Bolt: Throttle scroll event to prevent main thread blocking
+    if (!ticking) {
+      window.requestAnimationFrame(onScroll);
+      ticking = true;
+    }
+  }, { passive: true });
   onScroll();
 }
 
