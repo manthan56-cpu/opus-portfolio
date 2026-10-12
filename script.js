@@ -467,6 +467,7 @@ if (work && workTrack) {
   const cards = [...workTrack.querySelectorAll(".project")];
   let distance = 0;
   let hashAligned = false;
+  let cardCenters = [];
 
   function alignHashTarget() {
     if (hashAligned || !window.location.hash) return;
@@ -487,11 +488,16 @@ if (work && workTrack) {
   function measureWork() {
     distance = Math.max(0, workTrack.scrollWidth - window.innerWidth);
     work.style.height = `${distance + window.innerHeight}px`;
+    cardCenters = cards.map(card => card.offsetLeft + card.offsetWidth / 2);
     updateWork();
     alignHashTarget();
   }
 
+  let lastCurrent = -1;
+  let workQueued = false;
+
   function updateWork() {
+    workQueued = false;
     const top = work.getBoundingClientRect().top;
     const progress = distance ? Math.min(Math.max(-top / distance, 0), 1) : 0;
 
@@ -505,17 +511,27 @@ if (work && workTrack) {
     const center = window.innerWidth * progress + progress * distance;
     let current = 0;
     let best = Infinity;
-    cards.forEach((card, i) => {
-      const d = Math.abs(card.offsetLeft + card.offsetWidth / 2 - center);
+    cardCenters.forEach((cardCenter, i) => {
+      const d = Math.abs(cardCenter - center);
       if (d < best) {
         best = d;
         current = i;
       }
     });
-    workCurrent.textContent = String(current + 1).padStart(2, "0");
+    if (current !== lastCurrent) {
+      workCurrent.textContent = String(current + 1).padStart(2, "0");
+      lastCurrent = current;
+    }
   }
 
-  window.addEventListener("scroll", updateWork, { passive: true });
+  function queueWork() {
+    if (!workQueued) {
+      workQueued = true;
+      requestAnimationFrame(updateWork);
+    }
+  }
+
+  window.addEventListener("scroll", queueWork, { passive: true });
   window.addEventListener("resize", measureWork);
   document.fonts.ready.then(() => {
     measureWork();
@@ -709,18 +725,40 @@ if (trail && !isMobile) {
 const sections = document.querySelectorAll('[data-section]');
 const navLinks = document.querySelectorAll('.nav__links a');
 if (sections.length && navLinks.length) {
+  let sectionData = [];
+
+  const measureSections = () => {
+    sectionData = Array.from(sections).map(sec => ({
+      id: sec.getAttribute('data-section'),
+      top: sec.offsetTop
+    }));
+  };
+
+  let navScrollQueued = false;
+
   const onScroll = () => {
+    navScrollQueued = false;
     let current = '';
-    sections.forEach(sec => {
-      if (window.scrollY >= sec.offsetTop - 200) {
-        current = sec.getAttribute('data-section');
+    sectionData.forEach(sec => {
+      if (window.scrollY >= sec.top - 200) {
+        current = sec.id;
       }
     });
     navLinks.forEach(a => {
       a.classList.toggle('is-active', a.getAttribute('href') === '#' + current);
     });
   };
-  window.addEventListener('scroll', onScroll, { passive: true });
+
+  const queueNavScroll = () => {
+    if (!navScrollQueued) {
+      navScrollQueued = true;
+      requestAnimationFrame(onScroll);
+    }
+  };
+
+  window.addEventListener('resize', measureSections);
+  measureSections();
+  window.addEventListener('scroll', queueNavScroll, { passive: true });
   onScroll();
 }
 
