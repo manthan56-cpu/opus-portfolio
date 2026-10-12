@@ -1,0 +1,3 @@
+## 2026-10-12 - Layout Thrashing in Scroll Event Listeners
+**Learning:** Frequent reads of DOM elements (like `offsetLeft` and `offsetWidth`) followed by updates inside a scroll loop caused severe layout thrashing (forced synchronous layout).
+**Action:** Cache the required dimension measurements on load/resize, read the cache in the scroll event loop, and throttle DOM updates using `requestAnimationFrame`.
