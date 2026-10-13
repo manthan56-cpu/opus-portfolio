@@ -467,6 +467,7 @@ if (work && workTrack) {
   const cards = [...workTrack.querySelectorAll(".project")];
   let distance = 0;
   let hashAligned = false;
+  let cardCenters = [];
 
   function alignHashTarget() {
     if (hashAligned || !window.location.hash) return;
@@ -487,6 +488,10 @@ if (work && workTrack) {
   function measureWork() {
     distance = Math.max(0, workTrack.scrollWidth - window.innerWidth);
     work.style.height = `${distance + window.innerHeight}px`;
+
+    // Cache layout properties to avoid thrashing during scroll
+    cardCenters = cards.map(card => card.offsetLeft + card.offsetWidth / 2);
+
     updateWork();
     alignHashTarget();
   }
@@ -505,8 +510,8 @@ if (work && workTrack) {
     const center = window.innerWidth * progress + progress * distance;
     let current = 0;
     let best = Infinity;
-    cards.forEach((card, i) => {
-      const d = Math.abs(card.offsetLeft + card.offsetWidth / 2 - center);
+    cards.forEach((_, i) => {
+      const d = Math.abs(cardCenters[i] - center);
       if (d < best) {
         best = d;
         current = i;
@@ -515,7 +520,16 @@ if (work && workTrack) {
     workCurrent.textContent = String(current + 1).padStart(2, "0");
   }
 
-  window.addEventListener("scroll", updateWork, { passive: true });
+  let workTicking = false;
+  window.addEventListener("scroll", () => {
+    if (!workTicking) {
+      window.requestAnimationFrame(() => {
+        updateWork();
+        workTicking = false;
+      });
+      workTicking = true;
+    }
+  }, { passive: true });
   window.addEventListener("resize", measureWork);
   document.fonts.ready.then(() => {
     measureWork();

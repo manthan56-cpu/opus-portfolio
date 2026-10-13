@@ -1,0 +1,3 @@
+## 2024-05-24 - Layout Thrashing in Scroll Event Listeners
+**Learning:** In the horizontal scroll tracking implementation (`updateWork`), reading `card.offsetLeft` and `card.offsetWidth` immediately after writing layout properties like `workTrack.style.transform` forces the browser to synchronously recalculate layout on every scroll event, leading to significant layout thrashing.
+**Action:** When animating or updating UI based on scroll, cache static dimension calculations outside the render loop (e.g., on resize) and use `requestAnimationFrame` to decouple DOM writes from rapid scroll event dispatches.
