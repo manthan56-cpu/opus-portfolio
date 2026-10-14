@@ -491,7 +491,10 @@ if (work && workTrack) {
     alignHashTarget();
   }
 
+  let workQueued = false;
+
   function updateWork() {
+    workQueued = false;
     const top = work.getBoundingClientRect().top;
     const progress = distance ? Math.min(Math.max(-top / distance, 0), 1) : 0;
 
@@ -515,7 +518,13 @@ if (work && workTrack) {
     workCurrent.textContent = String(current + 1).padStart(2, "0");
   }
 
-  window.addEventListener("scroll", updateWork, { passive: true });
+  function queueWork() {
+    if (workQueued) return;
+    workQueued = true;
+    requestAnimationFrame(updateWork);
+  }
+
+  window.addEventListener("scroll", queueWork, { passive: true });
   window.addEventListener("resize", measureWork);
   document.fonts.ready.then(() => {
     measureWork();
@@ -709,7 +718,10 @@ if (trail && !isMobile) {
 const sections = document.querySelectorAll('[data-section]');
 const navLinks = document.querySelectorAll('.nav__links a');
 if (sections.length && navLinks.length) {
+  let scrollSpyQueued = false;
+
   const onScroll = () => {
+    scrollSpyQueued = false;
     let current = '';
     sections.forEach(sec => {
       if (window.scrollY >= sec.offsetTop - 200) {
@@ -720,7 +732,14 @@ if (sections.length && navLinks.length) {
       a.classList.toggle('is-active', a.getAttribute('href') === '#' + current);
     });
   };
-  window.addEventListener('scroll', onScroll, { passive: true });
+
+  const queueScrollSpy = () => {
+    if (scrollSpyQueued) return;
+    scrollSpyQueued = true;
+    requestAnimationFrame(onScroll);
+  };
+
+  window.addEventListener('scroll', queueScrollSpy, { passive: true });
   onScroll();
 }
 
