@@ -1,0 +1,3 @@
+## 2026-10-15 - Layout Thrashing in Unthrottled Scroll Handlers
+**Learning:** In vanilla JavaScript projects without virtual DOMs, interleaved DOM reads (e.g., `card.offsetLeft`) and writes (e.g., `style.transform`) inside a `scroll` event handler cause severe layout thrashing and synchronous layout recalculations, causing significant frame drops.
+**Action:** When creating high-frequency event handlers like `scroll`, pre-calculate and cache layout properties (like offsets) during `resize` events or initial setup. Always debounce visual updates using `requestAnimationFrame` and only update the DOM when values actually change.
