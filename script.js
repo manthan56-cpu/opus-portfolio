@@ -467,6 +467,9 @@ if (work && workTrack) {
   const cards = [...workTrack.querySelectorAll(".project")];
   let distance = 0;
   let hashAligned = false;
+  let cardCenters = [];
+  let lastWorkCurrent = -1;
+  let workTicking = false;
 
   function alignHashTarget() {
     if (hashAligned || !window.location.hash) return;
@@ -487,6 +490,10 @@ if (work && workTrack) {
   function measureWork() {
     distance = Math.max(0, workTrack.scrollWidth - window.innerWidth);
     work.style.height = `${distance + window.innerHeight}px`;
+
+    // Cache layout measurements to prevent layout thrashing during scroll
+    cardCenters = cards.map(card => card.offsetLeft + card.offsetWidth / 2);
+
     updateWork();
     alignHashTarget();
   }
@@ -506,16 +513,31 @@ if (work && workTrack) {
     let current = 0;
     let best = Infinity;
     cards.forEach((card, i) => {
-      const d = Math.abs(card.offsetLeft + card.offsetWidth / 2 - center);
+      // Use cached center to prevent synchronous layout during scroll event
+      const d = Math.abs(cardCenters[i] - center);
       if (d < best) {
         best = d;
         current = i;
       }
     });
-    workCurrent.textContent = String(current + 1).padStart(2, "0");
+
+    if (current !== lastWorkCurrent) {
+      workCurrent.textContent = String(current + 1).padStart(2, "0");
+      lastWorkCurrent = current;
+    }
   }
 
-  window.addEventListener("scroll", updateWork, { passive: true });
+  function onWorkScroll() {
+    if (!workTicking) {
+      workTicking = true;
+      requestAnimationFrame(() => {
+        updateWork();
+        workTicking = false;
+      });
+    }
+  }
+
+  window.addEventListener("scroll", onWorkScroll, { passive: true });
   window.addEventListener("resize", measureWork);
   document.fonts.ready.then(() => {
     measureWork();
