@@ -467,6 +467,8 @@ if (work && workTrack) {
   const cards = [...workTrack.querySelectorAll(".project")];
   let distance = 0;
   let hashAligned = false;
+  let cardMetrics = [];
+  let updateWorkQueued = false;
 
   function alignHashTarget() {
     if (hashAligned || !window.location.hash) return;
@@ -487,11 +489,19 @@ if (work && workTrack) {
   function measureWork() {
     distance = Math.max(0, workTrack.scrollWidth - window.innerWidth);
     work.style.height = `${distance + window.innerHeight}px`;
-    updateWork();
+
+    // Cache card dimensions to avoid layout thrashing during scroll
+    cardMetrics = cards.map(card => ({
+      offsetLeft: card.offsetLeft,
+      offsetWidth: card.offsetWidth
+    }));
+
+    queueUpdateWork();
     alignHashTarget();
   }
 
   function updateWork() {
+    updateWorkQueued = false;
     const top = work.getBoundingClientRect().top;
     const progress = distance ? Math.min(Math.max(-top / distance, 0), 1) : 0;
 
@@ -505,8 +515,8 @@ if (work && workTrack) {
     const center = window.innerWidth * progress + progress * distance;
     let current = 0;
     let best = Infinity;
-    cards.forEach((card, i) => {
-      const d = Math.abs(card.offsetLeft + card.offsetWidth / 2 - center);
+    cardMetrics.forEach((metric, i) => {
+      const d = Math.abs(metric.offsetLeft + metric.offsetWidth / 2 - center);
       if (d < best) {
         best = d;
         current = i;
@@ -515,7 +525,13 @@ if (work && workTrack) {
     workCurrent.textContent = String(current + 1).padStart(2, "0");
   }
 
-  window.addEventListener("scroll", updateWork, { passive: true });
+  function queueUpdateWork() {
+    if (updateWorkQueued) return;
+    updateWorkQueued = true;
+    requestAnimationFrame(updateWork);
+  }
+
+  window.addEventListener("scroll", queueUpdateWork, { passive: true });
   window.addEventListener("resize", measureWork);
   document.fonts.ready.then(() => {
     measureWork();
@@ -709,19 +725,44 @@ if (trail && !isMobile) {
 const sections = document.querySelectorAll('[data-section]');
 const navLinks = document.querySelectorAll('.nav__links a');
 if (sections.length && navLinks.length) {
+  let scrollSpyQueued = false;
+  let sectionMetrics = [];
+
+  const measureSections = () => {
+    sectionMetrics = Array.from(sections).map(sec => ({
+      id: sec.getAttribute('data-section'),
+      offsetTop: sec.offsetTop
+    }));
+    queueScrollSpy();
+  };
+
   const onScroll = () => {
+    scrollSpyQueued = false;
     let current = '';
-    sections.forEach(sec => {
-      if (window.scrollY >= sec.offsetTop - 200) {
-        current = sec.getAttribute('data-section');
+    const scrollY = window.scrollY;
+
+    sectionMetrics.forEach(sec => {
+      if (scrollY >= sec.offsetTop - 200) {
+        current = sec.id;
       }
     });
+
     navLinks.forEach(a => {
       a.classList.toggle('is-active', a.getAttribute('href') === '#' + current);
     });
   };
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
+
+  const queueScrollSpy = () => {
+    if (scrollSpyQueued) return;
+    scrollSpyQueued = true;
+    requestAnimationFrame(onScroll);
+  };
+
+  window.addEventListener('scroll', queueScrollSpy, { passive: true });
+  window.addEventListener('resize', measureSections);
+
+  // Initial measurement
+  measureSections();
 }
 
 /* ==========================================================================
